@@ -94,6 +94,7 @@ extern void (* OSDetachThread)(void * thread);
 extern void (* OSSleepTicks)(u64 ticks);
 extern u64 (* OSGetTick)(void);
 extern u64 (* OSGetTime)(void);
+//extern void (*OSTicksToCalendarTime)(u64 time, OSCalendarTime *calendarTime);
 
 //!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //! Mutex functions
@@ -111,6 +112,7 @@ extern void (* OSGetArgcArgv)(int* argc, char*** argv);
 extern void (* __Exit)(void);
 extern void (* OSFatal)(const char* msg);
 extern void (* DCFlushRange)(const void *addr, u32 length);
+extern void (* DCStoreRange)(const void *addr, u32 length);
 extern void (* ICInvalidateRange)(const void *addr, u32 length);
 extern void* (* OSEffectiveToPhysical)(const void*);
 extern int (* __os_snprintf)(char* s, int n, const char * format, ...);
@@ -135,6 +137,20 @@ extern int (* MCP_Close)(int handle);
 extern int (* MCP_GetOwnTitleInfo)(int handle, void * data);
 
 //!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! LOADER functions
+//!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+extern int (* LiWaitIopComplete)(int unknown_syscall_arg_r3, int * remaining_bytes);
+extern int (* LiWaitIopCompleteWithInterrupts)(int unknown_syscall_arg_r3, int * remaining_bytes);
+extern void (* addr_LiWaitOneChunk)(void);
+extern void (* addr_sgIsLoadingBuffer)(void);
+extern void (* addr_gDynloadInitialized)(void);
+
+//!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! Kernel function addresses
+//!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+extern void (* addr_PrepareTitle_hook)(void);
+
+//!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //! Other function addresses
 //!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 extern void (*DCInvalidateRange)(void *buffer, uint32_t length);
@@ -153,9 +169,9 @@ extern int (*IMIsAPDEnabled)(int * result);
 extern int (*IMIsAPDEnabledBySysSettings)(int * result);
 
 extern int (*IOS_Ioctl)(int fd, unsigned int request, void *input_buffer,unsigned int input_buffer_len, void *output_buffer, unsigned int output_buffer_len);
+extern int (*IOS_IoctlAsync)(int fd, unsigned int request, void *input_buffer,unsigned int input_buffer_len, void *output_buffer, unsigned int output_buffer_len, void *cb, void *cbarg);
 extern int (*IOS_Open)(char *path, unsigned int mode);
 extern int (*IOS_Close)(int fd);
-
 #ifdef __cplusplus
 }
 #endif
