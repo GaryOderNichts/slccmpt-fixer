@@ -3,7 +3,7 @@ This fixes the modes for slccmpt01 (vwii) on the wii u
 
 ## How to use
 - Place the .elf to sd:/wiiu/apps
-- Run mocha cfw (haxchi isn't supported at the moment)
+- Run cfw (mocha or haxchi)
 - Run, press A
 
 ## Why?
@@ -12,7 +12,6 @@ This is exactly what this program does.
 There are already other methods (for Example with wupserver) but this is probably the easiest
 
 ## TODO
-- haxchi support (freezes console for me when implemented)
 
 ## Disclaimer
 I am not responsible for any additional bricks. This is still in early development and I am not an expirienced Wii U developer.
